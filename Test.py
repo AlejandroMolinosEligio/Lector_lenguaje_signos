@@ -1,6 +1,6 @@
 import cv2
 from cvzone.HandTrackingModule import HandDetector
-from Utils.Classifier import Classifier
+from cvzone.ClassificationModule import Classifier
 import numpy as np
 import math
 from contextlib import redirect_stdout
