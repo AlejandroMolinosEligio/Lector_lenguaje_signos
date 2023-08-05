@@ -3,7 +3,9 @@ from cvzone.HandTrackingModule import HandDetector
 from Utils.Classifier import Classifier
 import numpy as np
 import math
-import time
+from contextlib import redirect_stdout
+import os
+import tensorflow.keras
 
 cap = cv2.VideoCapture(0)
 detector = HandDetector(maxHands=1)
@@ -44,8 +46,10 @@ while True:
                 wGap = math.ceil((imgSize-wCal)/2)
                 imgWhite[:,wGap:wGap+wCal] = imgResize
 
-                ## Prediccion
-                prediction, index = classifier.getPrediction(imgWhite, draw=False)
+                with open(os.devnull, 'w') as f, redirect_stdout(f):
+                    with tensorflow.device('/cpu:0'):
+                        ## Prediccion
+                        prediction, index = classifier.getPrediction(imgWhite, draw=False)
 
         
         else:
@@ -59,8 +63,10 @@ while True:
                 hGap = math.ceil((imgSize-hCal)/2)  
                 imgWhite[hGap:hGap+hCal,:] = imgResize
 
-                ## Prediccion
-                prediction, index = classifier.getPrediction(imgWhite, draw=False)
+                with open(os.devnull, 'w') as f, redirect_stdout(f):
+                    with tensorflow.device('/cpu:0'):
+                        ## Prediccion
+                        prediction, index = classifier.getPrediction(imgWhite, draw=False)
 
 
         ## Mostrar resultado en pantalla
@@ -68,10 +74,6 @@ while True:
         cv2.rectangle(imgOut, (x-offset,y-offset-50), (x-offset+90,y-offset), (255,0,255),cv2.FILLED)
         cv2.putText(imgOut,labels[index],(x,y-26),cv2.FONT_HERSHEY_COMPLEX,2,(255,255,255),2)
         cv2.rectangle(imgOut, (x-offset,y-offset), (x+w+offset,y+h+offset), (255,0,255),4)
-        #cv2.imshow("ImageCrop",imgCrop)
-        #cv2.imshow("ImageCrop",imgWhite)
-
-
 
     cv2.imshow("Image",imgOut)
     cv2.waitKey(1)
