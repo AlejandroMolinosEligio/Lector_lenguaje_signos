@@ -17,8 +17,6 @@ Utilizando la librería de cv2, opencv y keras. El modelo de aprendizaje utiliza
 
 - **Carpeta Models:** Esta carpeta dispone de todos los posibles modelos ya entrenados y las etiquetas (labels) asociados.
 
-- **Utilis:** Esta carpeta dispone de scrips auxiliares para el funcionamiento del programa.
-
 - **hands.py:** Este script es una versión base para comprobar la funcionalidad de la cámara y la detección de manos.
 
 - **handsSaveLetter.py:** Este script sirve para crear nuevas imágenes a las letras asociadas, para ello hay que modificar unos parámetros del script que son la línea 53 para la ruta donde se va a guardar la imagen.
